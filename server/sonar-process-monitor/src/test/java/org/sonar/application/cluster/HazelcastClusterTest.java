@@ -119,7 +119,7 @@ public class HazelcastClusterTest {
       HazelcastInstance hzInstance = createHazelcastClient(hzCluster);
       ReplicatedMap<ClusterProcess, Boolean> operationalProcesses = hzInstance.getReplicatedMap(OPERATIONAL_PROCESSES);
       assertThat(operationalProcesses)
-        .containsExactly(new AbstractMap.SimpleEntry<>(new ClusterProcess(hzCluster.getLocalUuid(), ProcessId.ELASTICSEARCH), Boolean.TRUE));
+        .containsExactly(new AbstractMap.SimpleEntry<>(new ClusterProcess(hzCluster.getLocalUUID(), ProcessId.ELASTICSEARCH), Boolean.TRUE));
     }
   }
 
@@ -166,7 +166,7 @@ public class HazelcastClusterTest {
   public void localUUID_must_not_be_empty() {
     ClusterProperties clusterProperties = new ClusterProperties(newClusterSettings());
     try (HazelcastCluster hzCluster = HazelcastCluster.create(clusterProperties)) {
-      assertThat(hzCluster.getLocalUuid()).isNotEmpty();
+      assertThat(hzCluster.getLocalUUID()).isNotEmpty();
     }
   }
 

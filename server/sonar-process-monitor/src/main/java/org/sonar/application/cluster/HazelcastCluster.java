@@ -68,7 +68,7 @@ public class HazelcastCluster implements AutoCloseable {
     clientListenerUUID = hzInstance.getClientService().addClientListener(new ConnectedClientListener());
   }
 
-  String getLocalUuid() {
+  String getLocalUUID() {
     return hzInstance.getLocalEndpoint().getUuid();
   }
 
@@ -97,7 +97,7 @@ public class HazelcastCluster implements AutoCloseable {
   }
 
   void setOperational(ProcessId processId) {
-    operationalProcesses.put(new ClusterProcess(getLocalUuid(), processId), Boolean.TRUE);
+    operationalProcesses.put(new ClusterProcess(getLocalUUID(), processId), Boolean.TRUE);
   }
 
   boolean tryToLockWebLeader() {
@@ -107,7 +107,7 @@ public class HazelcastCluster implements AutoCloseable {
       lock.lock();
       try {
         if (leader.get() == null) {
-          leader.set(getLocalUuid());
+          leader.set(getLocalUUID());
           return true;
         } else {
           return false;
@@ -152,7 +152,7 @@ public class HazelcastCluster implements AutoCloseable {
       // Removing the operationalProcess from the replicated map
       operationalProcesses.keySet().forEach(
         clusterNodeProcess -> {
-          if (clusterNodeProcess.getNodeUuid().equals(getLocalUuid())) {
+          if (clusterNodeProcess.getNodeUuid().equals(getLocalUUID())) {
             operationalProcesses.remove(clusterNodeProcess);
           }
         });
